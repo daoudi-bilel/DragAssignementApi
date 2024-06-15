@@ -1,34 +1,59 @@
-using System.Text;
-using assignementDragApi.Services;
-using assignementDragApi.Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using Microsoft.OpenApi.Models;
-using assignementDragApi.Models;
-using assignementDragApi.Helpers;
+using DragAssignementApi.Services;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using DragAssignementApi.Data;
+using DragAssignementApi.Helpers;
+using DragAssignementApi.Models;
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddCors(options =>
+{
+   options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:3000","https://hcinventory.netlify.app")
+               .WithMethods("GET", "POST", "PUT", "DELETE", "PATCH")
+               .WithHeaders("Content-Type", "Authorization")
+               .AllowCredentials()
+               .SetPreflightMaxAge(TimeSpan.FromMinutes(10));
+    });
+});
 
-
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "DragAssignement API",
+        Description = "DragAssignement api",
+        TermsOfService = new Uri("https://bilos.netlify.app"),
+        Contact = new OpenApiContact
+        {
+            Name = "Daoudi Bilel",
+            Email = "daoudi-bilel@outlook.com"
+        },
+    });
+});
+builder.Services.AddLogging(); 
+//AUTH ADDED
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(o =>
+})
+.AddJwtBearer(options =>
 {
-    o.RequireHttpsMetadata = false;
-    o.SaveToken = false;
-    o.TokenValidationParameters = new TokenValidationParameters
+    options.RequireHttpsMetadata = false;
+    options.Authority = null;
+    options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
@@ -40,55 +65,49 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.Services.AddCors(options =>
-{
-   options.AddDefaultPolicy(builder =>
-    {
-        builder.WithOrigins("http://localhost:4200","http://localhost:3000")
-               .WithMethods("GET", "POST", "PUT", "DELETE", "PATCH")
-               .WithHeaders("Content-Type", "Authorization");
-    });
-});
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
-
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "drag assignment API",
-        Description = "LD assignment Drag api",
-        TermsOfService = new Uri("https://bilos.netlify.app"),
-        Contact = new OpenApiContact
-        {
-            Name = "Daoudi Bilel",
-            Email = "daoudi-bilel@outlook.com"
-        },
-    });
-});
-
-// Register AuthService
 builder.Services.Configure<JWT>(builder.Configuration.GetSection("JWT"));
+
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IMemberService, MemberService>();
+builder.Services.AddScoped<IIssueService, IssueService>();
+builder.Services.AddScoped<IObjectiveService, ObjectiveService>();
+
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
+builder.Logging.AddConsole();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Auth API V1");
-    });
+    app.UseDeveloperExceptionPage();
+    
 }
+
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
-app.UseCors("CorsPolicy");
+app.UseCors();
 
 app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthorization(); 
 
 app.MapControllers();
 

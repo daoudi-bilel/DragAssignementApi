@@ -1,4 +1,4 @@
-namespace assignementDragApi.Helpers
+namespace DragAssignementApi.Helpers
 {
     public class JWT
     {

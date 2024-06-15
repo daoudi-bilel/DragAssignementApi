@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace assignementDragApi.Models
+namespace DragAssignementApi.Models
 {
     public class RoleModel
     {

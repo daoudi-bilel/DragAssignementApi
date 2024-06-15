@@ -1,4 +1,4 @@
-namespace assignementDragApi.Models
+namespace DragAssignementApi.Models
 {
     public class RefreshToken
     {

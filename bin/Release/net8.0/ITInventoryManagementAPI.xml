@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DragAssignementApi</name>
+    </assembly>
+    <members>
+        <member name="T:DragAssignementApi.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:DragAssignementApi.Migrations.UpdateEmployeeDeviceRelationship">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.UpdateEmployeeDeviceRelationship.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.UpdateEmployeeDeviceRelationship.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.UpdateEmployeeDeviceRelationship.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:DragAssignementApi.Migrations.UpdateEmployeeModels">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.UpdateEmployeeModels.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.UpdateEmployeeModels.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.UpdateEmployeeModels.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:DragAssignementApi.Migrations.UpdateEmployeeDeviceRelationshipNew">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.UpdateEmployeeDeviceRelationshipNew.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.UpdateEmployeeDeviceRelationshipNew.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:DragAssignementApi.Migrations.UpdateEmployeeDeviceRelationshipNew.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

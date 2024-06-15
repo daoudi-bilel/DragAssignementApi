@@ -1,9 +1,9 @@
-using assignementDragApi.Models;
-using assignementDragApi.Models.DTOs;
+using DragAssignementApi.Models;
+using DragAssignementApi.Models.DTO;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
-namespace assignementDragApi.Services
+namespace DragAssignementApi.Services
 {
     public interface IAuthService
     {
@@ -15,5 +15,10 @@ namespace assignementDragApi.Services
         Task<AuthModel> GetUserProfileAsync(string userId);
         Task<string> ForgotPasswordAsync(string email);
         Task<string> VerifyEmailAsync(string userId, string token);
+        Task<AuthModel> GetMeAsync(string userId, string refreshToken);
+        Task<bool> IsEmailRegisteredAsync(string email);
+        Task<IdentityResult> RegisterUserWithCompanyAsync(UserWithCompanyRegistrationDto registrationDto);
+        Task<string> ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
+        Task<bool> IsSpaceAvailableAsync(string space);
     }
 }

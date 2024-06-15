@@ -1,4 +1,4 @@
-namespace assignementDragApi.Models.DTOs
+namespace DragAssignementApi.Models.DTOs
 {
     public class TokenRequestModel
     {

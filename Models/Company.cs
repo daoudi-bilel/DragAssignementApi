@@ -1,4 +1,4 @@
-namespace assignementDragApi.Models
+namespace DragAssignementApi.Models
 {
     public class Company
     {
@@ -6,6 +6,8 @@ namespace assignementDragApi.Models
         public string CompanyName { get; set; }
         public string UniqueId { get; set; }
         public string Industry { get; set; }
-        public int NumberOfEmployees { get; set; }
+        public string NumberOfEmployees { get; set; }
+        public string UserId { get; set; } 
+        public ApplicationUser User { get; set; } 
     }
 }
